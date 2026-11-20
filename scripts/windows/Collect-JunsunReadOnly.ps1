@@ -23,8 +23,8 @@ if (-not (Get-Command $AdbPath -ErrorAction SilentlyContinue)) {
 $raw = @(& $AdbPath devices -l 2>&1)
 if ($LASTEXITCODE -ne 0) { throw "adb devices -l non riuscito: $($raw -join ' ')" }
 $escaped = [regex]::Escape($Serial)
-$matches = @($raw | Where-Object { $_ -match ('^' + $escaped + '\s+device(?:\s|$)') })
-if ($matches.Count -ne 1) {
+$foundLines = @($raw | Where-Object { $_ -match ('^' + $escaped + '\s+device(?:\s|$)') })
+if ($foundLines.Count -ne 1) {
   throw 'Seriale non trovato come device autorizzato. Verifica adb devices -l; non confondere Junsun e Pixel 7.'
 }
 Write-Host "Dispositivo ADB selezionato: $Serial" -ForegroundColor Yellow
@@ -42,9 +42,9 @@ Nessuna lettura da sola prova presenza o assenza di telemetria.
 '@ | Out-File -Encoding UTF8 (Join-Path $folder 'PRIVACY-README.txt')
 
 function Collect-ReadOnly {
-  param([string]$Filename, [string[]]$Args)
+  param([string]$Filename, [string[]]$ShellArgs)
   Write-Host "Leggo: $Filename"
-  $result = @(& $AdbPath -s $Serial shell @Args 2>&1)
+  $result = @(& $AdbPath -s $Serial shell @ShellArgs 2>&1)
   $exit = $LASTEXITCODE
   if ($exit -ne 0) { Write-Warning "Lettura non riuscita: $Filename (exit $exit)" }
   $result | Out-File -Encoding UTF8 (Join-Path $folder $Filename)
