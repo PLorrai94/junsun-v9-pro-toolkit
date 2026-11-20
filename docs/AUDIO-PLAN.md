@@ -1,22 +1,16 @@
-# Percorso di miglioramento audio — prima misurare
+# Analisi audio e DSP dell'autoradio
 
-## Ambito
-Junsun V9 Pro sulla Fiat Bravo II. L'unità commerciale dichiara DSP e fino a 48 bande EQ in alcune configurazioni, **non verificati sul nostro esemplare**. Non conosciamo ancora chip DSP, amplificatore, modello altoparlanti o presenza di subwoofer.
+**Prima identificazione, poi ottimizzazione.** Non conosciamo ancora chip DSP, firmware audio, percorso dei segnali e configurazione degli altoparlanti della Fiat Bravo.
 
-## Diagnosi iniziale in sola lettura
-1. Identificare dai pacchetti l'app DSP/equalizzatore e controllare se opera in Android o comunica con MCU/DSP separato.
-2. Documentare con screenshot **privati e anonimizzati** preset, EQ, fader/balance, crossover, eventuale allineamento temporale e impostazioni loudness.
-3. Confrontare a volume sicuro le sorgenti: radio FM, Bluetooth A2DP, Android Auto USB e Android Auto wireless. Alcune potrebbero usare percorsi audio differenti.
-4. Individuare sintomi specifici: distorsione, basso impastato, livelli non allineati, fruscio, ritardo, microfono, clipping.
+## Discovery
+- Elenco app audio e servizi; identificare DSP/equalizzatore, amplificatore, DAC se visibile e rapporto con la MCU.
+- Salvare **localmente** schermate e valori originali di EQ, fader/balance, crossover, filtri e livelli.
+- Verificare se radio FM, Bluetooth, Android Auto e altre app passano dallo stesso percorso DSP.
+- `adb shell dumpsys audio` è solo una vista Android; un DSP esterno potrebbe non essere documentato da ADB.
 
-## Modifiche valutabili solo dopo la baseline
-- Regolazione EQ moderata e riduzione di picchi, anziché massimizzare bassi e preamplificazione.
-- Crossover / HPF e LPF solo se effettivamente disponibili e adeguati agli altoparlanti.
-- Bilanciamento e fader con test manuali.
-- Comparazione A/B registrata delle regolazioni, mantenendo il preset originale.
-- Ottimizzazione di chiamate e Android Auto separata dall'audio musicale.
+## Misure e modifiche
+- Testare a volume di ascolto sicuro e simile, con gli stessi brani/segmenti, per riconoscere clipping, fruscio, distorsione, ritardo e livelli non allineati.
+- Solo quando la catena audio è identificata: EQ moderata, filtri se supportati, bilanciamento, staging e livello delle sorgenti; confronto A/B e salvataggio preset.
+- Non installare pacchetti audio di dubbia provenienza e non flashare DSP/MCU senza provenienza verificata e procedura recovery.
 
-**Non applicare gain elevati, DSP firmware di terzi, modifiche MCU, patch AudioFlinger o impostazioni nascoste senza modello hardware e rollback.** ADB potrebbe non esporre il DSP fisico.
-
-## Stato
-Nessuna modifica audio e nessuna misura raccolta.
+**Stato:** nessun test o cambiamento audio effettuato.
