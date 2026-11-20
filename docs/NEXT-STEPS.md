@@ -1,24 +1,28 @@
-# Ripartenza pratica — prossima sessione
+# Checklist operativa — partire da zero
 
-## Dove siamo
-Tutto il lavoro **documentale** è conservato nel repository. Nessun ADB collegato al Junsun, nessun rapporto raccolto, nessun firmware flashato o app disinstallata.
+## Milestone M0: stabilire il collegamento Windows ↔ autoradio
+- [ ] Installare Android SDK Platform Tools ufficiali.
+- [ ] Verificare opzioni sviluppatore e un metodo ADB disponibile sul Junsun.
+- [ ] Riconoscere **univocamente** il dispositivo tramite `adb devices -l`.
+- [ ] Confermare autorizzazione, alimentazione e veicolo parcheggiato.
+- [ ] Leggere il codice dello script [Collect-JunsunReadOnly.ps1](../scripts/windows/Collect-JunsunReadOnly.ps1) prima dell'eventuale uso.
 
-## Checklist minima Windows
-- [ ] Scaricare [Android SDK Platform Tools](https://developer.android.com/tools/releases/platform-tools) da Google.
-- [ ] Verificare nelle impostazioni Android **originali** del Junsun se esistono Opzioni sviluppatore, Debug USB e/o Debug wireless.
-- [ ] A veicolo parcheggiato, verificare una connessione supportata. La USB per Android Auto **non implica** che la porta accetti ADB da PC.
-- [ ] In PowerShell, `adb devices -l` e identificare il Junsun (non il Pixel 7). Non pubblicare seriali.
-- [ ] Leggere [SETUP-WINDOWS](SETUP-WINDOWS.md); solo dopo code review eseguire, se desiderato, lo [script read-only](../scripts/windows/Collect-JunsunReadOnly.ps1) indicando il seriale.
-- [ ] Conservare report localmente; anonimizzarli prima di farli analizzare da Codex/Claude o caricarli in un PR.
-- [ ] Compilare [BASELINE](BASELINE.md) con metriche e test funzioni auto.
-- [ ] Solo dopo, valutare audit manuale di CleanYourHeadUnit e privacy/telemetria.
+## Milestone M1: fotografare il sistema, zero modifiche
+- [ ] Leggere API / fingerprint / board / build e metadati hardware.
+- [ ] Inventariare app, servizi e componenti OEM.
+- [ ] Salvare report **soltanto localmente** e preparare sintesi anonimizzata.
+- [ ] Compilare [BASELINE](BASELINE.md) incluse radio, comandi al volante, MCU/CANBUS, audio e alimentazione.
 
-## Firmware
-- [ ] Scaricare opzionalmente un candidato pubblico per **analisi offline**, non per installazione.
-- [ ] Calcolare SHA256 e registrare la provenienza.
-- [ ] Elencare file di archivio senza eseguirli.
-- [ ] Confrontare fingerprint, board, metadata e revisioni con la baseline reale.
-- [ ] Non installare nulla finché non esistono compatibilità documentata e procedura recovery.
+## Milestone M2: audit e proposta, senza debloat automatico
+- [ ] Revisionare il codice di CleanYourHeadUnit e fissarne il commit.
+- [ ] Classificare pacchetti: KEEP / REVIEW / UNKNOWN.
+- [ ] Valutare telemetria e processi con fatti riproducibili.
+- [ ] Proporre interventi specifici con rischi, rollback e test.
 
-## Criteri di completamento v0.1
-Report privato, inventario e baseline accurata, tabella KEEP/UNKNOWN/REVIEW, risultati in sola lettura, nessuna funzione auto compromessa e nessun dato identificativo pubblicato.
+## Milestone M3: decisioni successive
+- [ ] Debloat singoli pacchetti **solo approvati e recuperabili**.
+- [ ] Catalogo aggiornamenti applicazioni (versioni, firme, provenienza).
+- [ ] Studio firmware/MCU e compatibilità **senza flash**.
+- [ ] Analisi audio/DSP e interventi ripristinabili.
+
+**Prossima azione effettiva:** verificare ADB sullo stereo. Fino a quel momento, nessuna diagnosi o ottimizzazione è stata eseguita.
