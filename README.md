@@ -43,3 +43,14 @@ Su Windows, scaricare [Android SDK Platform Tools](https://developer.android.com
 Il repository è pubblico: non caricare log ADB grezzi, screenshot con informazioni personali, indirizzi MAC, SSID, numeri, contatti o dati di posizione. I report rimangono localmente sul PC; `.gitignore` esclude le cartelle dati previste.
 
 Nessuna modifica di app di sistema, CarLetter, MCU, CANBUS, retrocamera, DSP, radio, gestione dell'accensione o firmware senza revisione e approvazione esplicita. Il software di altri veicoli non è automaticamente compatibile.
+
+## Materiale consolidato (20 novembre 2026)
+
+- [Firmware individuati: V7472, V8987, V8921 e candidati esclusi](docs/FIRMWARE-CANDIDATES.md) — **nessuno autorizzato per il flash**.
+- [CarLetter / Android Auto](docs/CARLETTER-ANDROID-AUTO.md) e [incidente modalità aereo](docs/INCIDENTS.md).
+- [Ricerca su GitHub, XDA e forum](docs/RESEARCH-NOTES.md).
+- [Richiesta firmware / assistenza](docs/SUPPORT-REQUESTS.md).
+- [Cronologia del lavoro e dei due kit precedenti](docs/WORK-HISTORY.md): nessuna decisione è stata cancellata.
+- [Script ADB PowerShell in sola lettura](scripts/windows/Collect-JunsunReadOnly.ps1), adattato dal primo kit. **Non testato su questo esemplare**; richiede selezione e conferma esplicita del dispositivo.
+
+**Avanzamento reale:** abbiamo soltanto documenti e uno script preparato; nessuna connessione ADB verificata, nessun dump, nessun firmware installato, nessun debloat o tuning audio eseguito.
