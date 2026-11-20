@@ -1,25 +1,41 @@
-# Roadmap — Junsun V9 Pro Toolkit
+# Roadmap tecnica — dall'inventario alle ottimizzazioni
 
-## v0.1: Discovery e audit (NESSUNA MODIFICA AL DISPOSITIVO)
-**0. Accesso ADB.** Veicolo parcheggiato, alimentazione stabile; autorizzazione debug, selezione univoca del Junsun, conferma della reale versione Android e metodo per disattivare il debug dopo la sessione.
+## Fase 0 — Collegamento e controllo ambiente
+**Deliverable:** Windows + ADB funzionante e dispositivo riconosciuto. Testare USB / debug wireless effettivamente supportati; usare seriale specifico. Nessun root o modifica.
 
-**1. Inventario e baseline.** Audit del codice upstream prima di eseguirlo. Usare preferibilmente `cyhu` di CleanYourHeadUnit per status, inventory, diagnostics. Registrare app e risorse in file locali, proteggendo dati sensibili. Misurare tempi di avvio e reattività e testare funzioni auto secondo `BASELINE.md`.
+## Fase 1 — Discovery e baseline (read-only)
+- Proprietà sistema, versione reale Android/API, fingerprint, build, SoC, RAM, storage, servizi attivi, schema app e OEM.
+- Identificazione dei componenti auto (MCU, CANBUS, audio/DSP, Bluetooth, Wi-Fi, telecamera, launcher), distinguendo visibilità ADB da informazioni non accessibili.
+- Misure ripetibili: boot, apertura app, RAM/CPU/storage e test di radio, comandi al volante, Bluetooth, Android Auto, camera, standby.
+- Archiviazione report localmente e sintesi pubblicabile senza identificativi.
+**Gate:** inventario verificato, baseline e test funzionali registrati.
 
-**2. Privacy e telemetria.** Usare il catalogo `cyhu privacy audit` solo come indicatore iniziale. Classificare evidenze vs sospetti e separare servizi della vettura da app accessorie. Non concludere che assenza di rilevazioni equivalga ad assenza di telemetria. Un'analisi di traffico richiede una fase dedicata.
+## Fase 2 — Audit privacy e bloatware (analisi, non modifiche)
+- Prendere come base CleanYourHeadUnit dopo review di codice e dei comandi.
+- Mappare pacchetti con funzione, launcher, servizi, permessi e dipendenze; classificare `KEEP / REVIEW / UNKNOWN`.
+- Esaminare indicazioni di telemetria: permessi e traffico **non provano** da soli esfiltrazione.
+**Gate:** ogni candidato ha evidenze, dipendenze e test di regressione.
 
-**Uscita v0.1:** report sanificato, prove ripetibili, classificazione KEEP / UNKNOWN / REVIEW e backlog di interventi; zero modifiche Android.
+## Fase 3 — Debloat e prestazioni (solo approvazione specifica)
+- Prima backup delle configurazioni e degli APK dove accessibili; non presupporre il ripristino senza test.
+- Disabilitare eventualmente **una sola app non critica** per volta, mai il core automotive o servizi sconosciuti.
+- Misure prima/dopo in condizioni simili, test veicolo fermo, rollback.
+**Gate:** incremento misurabile, zero regressioni auto.
 
-## v0.2: Proposta di ottimizzazione reversibile
-Usare la metodologia `headunit-debloat-skill`, non una lista generica di app. Per ogni candidato: funzione, evidenze, impatto, comando previsto, rollback, metriche e test funzionali. Approvazione separata per ogni intervento. Nessuna azione automatica.
+## Fase 4 — Aggiornamento applicazioni e interfaccia
+- Inventario dei pacchetti con versione, sorgente e firma.
+- Ricercare versioni aggiornate ufficiali OEM e alternative per launcher, ricevitore Android Auto, navigazione e audio; verificare compatibilità, firma e licenze.
+- Nessuna sostituzione dei servizi OEM senza piano di recupero.
+**Gate:** confronto pratico con la versione installata e vantaggio documentato.
 
-## v0.3: Android Auto e connettività
-CarLetter funziona wireless e USB dopo la correzione della modalità aereo: preservarla. Analizzare tempi di avvio, Wi-Fi/BT, compatibilità di eventuali alternative e condizioni che permettono un confronto reale, senza perdere licenza.
+## Fase 5 — Audio / DSP
+- Identificare chip e percorso audio, fotograficamente/tecnicamente registrare preset attuali e testare sorgenti.
+- EQ, crossover e livelli solo se supportati e con rollback.
+**Gate:** prove d'ascolto a volume equivalente e assenza di clipping.
 
-## v0.4: Audio e DSP
-Identificare il percorso audio e l'eventuale DSP separato. Documentare i preset originali; confrontare impostazioni a parità di sorgente e volume; nessun incremento arbitrario del gain. Firmware DSP non modificato.
+## Fase 6 — Firmware / MCU
+- Cercare e analizzare offline le immagini, confrontando board, partizioni, BSP, driver touch, BT, DSP e MCU.
+- Esigere sorgente attendibile, integrità verificata dove possibile, procedura di flash **per la revisione** e recovery.
+**Gate:** nessun flash senza compatibilità dimostrata e piano di recupero.
 
-## v0.5: Compatibilità firmware
-Confrontare metadati G2984/X-258/G10625 e revisioni hardware, senza assumere compatibilità dal nome commerciale. Nessun flash prima di origine affidabile, checksum, istruzioni per questo modello e procedura recovery.
-
-## Regola trasversale
-Proteggere radio, CANBUS, MCU, retromarcia, comandi al volante, audio, DSP, Bluetooth, Wi-Fi, standby e servizi sconosciuti. Adottare strumenti generic Android soltanto in assenza di una soluzione specifica per autoradio.
+**Regola:** nessun aggiornamento deve precedere la discovery. La fase zero non presuppone che il debug wireless sia supportato.
