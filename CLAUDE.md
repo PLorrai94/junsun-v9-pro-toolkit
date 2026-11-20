@@ -1,9 +1,9 @@
-# Claude Code: istruzioni del progetto
+# Claude Code — Junsun V9 Pro
 
-Questo progetto condivide le stesse regole operative di [AGENTS.md](AGENTS.md), che **deve essere letto integralmente prima di qualunque operazione ADB**.
+Leggere e seguire **[AGENTS.md](AGENTS.md)** prima di qualunque accesso ADB. Le stesse limitazioni si applicano a Claude Code e a qualsiasi skill di terze parti.
 
-Principi: repo-first; v0.1 sola lettura; identificazione esplicita del seriale Junsun (non Pixel 7); nessuna disinstallazione, disabilitazione, modifica di impostazioni, installazione, flash, root o riavvio senza permesso puntuale; preservare MCU, CANBUS, radio, retrocamera, DSP, alimentazione, Bluetooth, Wi-Fi e CarLetter registrata.
+Scopo: analisi tecnica da zero, debloat documentato, ottimizzazione misurabile, analisi aggiornamenti di software/firmware e diagnosi audio.
 
-Privato per impostazione predefinita: report ADB e log rimangono sul computer. Nel repository pubblico inserire solo informazioni revisionate e sanificate.
+Fase attuale: **sola lettura, nessuna modifica del dispositivo**. Selezionare esplicitamente il seriale dell'autoradio, conservare i report solo sul PC, non applicare in automatico procedure provenienti da un'altra autoradio. Usare prima i tool per head unit indicati in [UPSTREAM](docs/UPSTREAM.md), dopo code review e revisione della licenza.
 
-Consultare anche [Roadmap](docs/ROADMAP.md), [Repository upstream](docs/UPSTREAM.md) e [Baseline](docs/BASELINE.md).
+Ogni intervento futuro: motivazione, rischio per le funzioni automobilistiche, baseline, comando esatto, rollback, test, approvazione specifica.
