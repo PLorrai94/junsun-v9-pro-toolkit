@@ -1,24 +1,20 @@
-# Scheda del dispositivo (da verificare tramite ADB)
+# Device profile — dati preliminari da verificare
 
-| Voce | Dato attualmente noto |
-| --- | --- |
-| Veicolo | Fiat Bravo II (198) |
-| Autoradio | Junsun V9 Pro 4+64 GB |
-| SoC dichiarato | Qualcomm MSM8953 / Snapdragon 625 |
-| Display | 1280 x 720 |
-| Android dichiarato | 13; API reale **non ancora verificata** |
-| Piattaforma | X-258 Overseas |
-| Firmware | `3474.20240925.104112.G2984` |
-| MCU | `V0.22.9 G10625` |
-| CarLetter | `8.1.6.20240920` |
-| Canale CarLetter | `XZ03-450`, registrata |
-| Smartphone Android Auto | Google Pixel 7 |
+| Campo | Informazione preliminare | Come validare |
+| --- | --- | --- |
+| Veicolo | Fiat Bravo II (198) | installazione reale |
+| Modello commerciale | Junsun V9 Pro, 4 GB RAM + 64 GB storage | etichetta, menu e ADB |
+| SoC dichiarato | Qualcomm MSM8953 | proprietà sistema + dati hardware |
+| Android mostrato | 13 | `ro.build.version.sdk`, fingerprint e controlli consistenza |
+| Firmware mostrato | `3474.20240925.104112.G2984` | `getprop`, schermate build OEM |
+| Piattaforma OEM | X-258 Overseas | pacchetti, proprietà e menu OEM |
+| MCU mostrata | V0.22.9 G10625 | menu MCU / file identificativi |
+| Display | 1280×720 | `wm size`, hardware |
+| Radio, DSP, MCU, CANBUS | tipologia non verificata | inventario app e hardware |
+| Connettività USB / debug wireless | supporto ignoto | test fase 0 |
 
-## Stato funzionale
-Android Auto via USB e wireless funziona. Il precedente mancato avvio wireless era dovuto alla modalità aereo attiva sull'autoradio: non attribuire il guasto a CarLetter o al firmware.
+## Stato di verifica
+**Nessuna lettura ADB ancora registrata.** Il nome Junsun V9 Pro e i codici G2984/MSM8953 potrebbero descrivere varianti con componenti incompatibili. Le versioni mostrate dal produttore non sostituiscono la verifica reale.
 
-## Da raccogliere nella baseline
-API level effettiva, fingerprint, processi e pacchetti, eventuale famiglia firmware riconosciuta, percorso audio/DSP e disponibilità di collegamento ADB. Non includere qui seriali, MAC, SSID o dati personali.
-
-## Limitazioni note
-Stessa CPU o stesso prefisso firmware NON dimostrano compatibilità di ROM, driver display, MCU, CANBUS o sistemi DSP.
+## Per la prima sessione
+Misurare CPU/API, elenco pacchetti, servizi, memoria e storage. Per DSP/MCU/CANBUS annotare ciò che Android può effettivamente vedere e ciò che rimane sconosciuto.

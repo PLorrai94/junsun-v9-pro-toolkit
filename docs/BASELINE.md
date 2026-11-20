@@ -1,20 +1,25 @@
-# Baseline da compilare a veicolo fermo
+# Baseline tecnica — compilare prima di qualsiasi modifica
 
-| Metrica/funzione | Prima | Dopo | Metodo |
-|---|---|---|---|
-| Livello API Android | da misurare | | `adb shell getprop ro.build.version.sdk` |
-| RAM totale e disponibile a riposo | da misurare | | `adb shell dumpsys meminfo` |
-| Spazio libero su /data | da misurare | | `adb shell df -h /data` |
-| Avvio autoradio fino a launcher usabile | da misurare | | cronometro, stessa condizione iniziale |
-| Connessione Android Auto wireless | da misurare | | Pixel 7, stesso test |
-| Avvio Android Auto USB | da misurare | | stesso cavo e condizioni |
-| Reattività launcher / apertura app | da misurare | | cronometro e osservazioni |
-| Chiamate Bluetooth | verificare | | prova a veicolo fermo |
-| Radio FM | verificare | | test manuale |
-| Fader / balance / DSP | verificare | | screenshot preset e test |
-| Comandi al volante | verificare | | test manuale |
-| Retrocamera, se presente | verificare | | test a veicolo fermo |
-| CANBUS / indicatori veicolo | verificare | | test manuale |
-| Standby / ripresa | verificare | | osservazione manuale |
+Nessuna metrica è stata ancora acquisita. Condizioni: veicolo parcheggiato, alimentazione equivalente, stessa app e stesso telefono per i test; distinguere avvio a freddo da ripresa standby.
 
-Annotare temperatura, app aperte, durata di attività e versione firmware in forma non identificante. Nessun dato grezzo del veicolo in GitHub.
+| Ambito | Metrica | Prima | Dopo | Metodo |
+|---|---|---|---|---|
+| Hardware | SoC, API, RAM, storage, build e kernel | da verificare | | proprietà ADB, display OEM |
+| Prestazioni | secondi per boot freddo / ripresa | da misurare | | cronometro ×3 |
+| UI | tempo apertura launcher / impostazioni | da misurare | | cronometro ×3 |
+| Risorse | CPU, RAM e spazio /data a riposo | da misurare | | dumpsys/df |
+| Background | servizi/processi persistenti | da misurare | | pm/dumpsys |
+| Rete | connessioni / attività per app (ove visibili) | da analizzare | | dati locali anonimizzati |
+| Android Auto | avvio via cavo / wireless | da misurare | | prova ×3 |
+| Audio | volume, EQ, distorsione e sorgenti | da registrare | | preset + test A/B |
+| Radio | FM e RDS | da testare | | test manuale |
+| Veicolo | comandi al volante / CANBUS | da testare | | test manuale |
+| Veicolo | retrocamera, se presente | da testare | | test manuale |
+| Alimentazione | standby e ripresa | da testare | | test manuale |
+| Telefonia | microfono e chiamate Bluetooth | da testare | | test manuale |
+
+## Condizioni e prove
+Salvare fonte, data, versione build, metodo, numero di ripetizioni e variabilità. **La RAM libera da sola non è una metrica sufficiente di velocità.** Non pubblicare dati di rete, account, identificativi hardware o schermate personali.
+
+## Stato
+Tutto `DA VERIFICARE` fino a esecuzione effettiva sull'autoradio.

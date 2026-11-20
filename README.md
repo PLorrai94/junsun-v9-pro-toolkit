@@ -1,60 +1,50 @@
 # Junsun V9 Pro Toolkit
 
-Toolkit e documentazione per **analizzare e migliorare con cautela** una autoradio Junsun V9 Pro tramite ADB, usando **prima strumenti GitHub già dedicati alle autoradio Android**.
+**Progetto tecnico di analisi, debloat e aggiornamento di un'autoradio Android**, condotto da PC Windows con ADB e, dove utile, Codex / Claude Code.
 
-> **Stato: v0.1 – Discovery / Audit.** Nessuna procedura di modifica automatica. Le istruzioni iniziali sono in sola lettura; zero flash firmware.
+> **Stato: fase 0 — nessun audit eseguito sul dispositivo.** L'obiettivo è misurare e capire il sistema prima di cambiarlo. Nessuna ROM, applicazione o servizio è stato modificato da questo progetto.
 
-## Dispositivo di riferimento
+## Obiettivi
 
-Junsun V9 Pro 4+64 GB su Fiat Bravo II (198), Qualcomm MSM8953, display 1280x720, X-258 Overseas, build `3474.20240925.104112.G2984`, MCU `V0.22.9 G10625`. CarLetter `8.1.6.20240920`, canale `XZ03-450`, registrata. Il sistema dichiara Android 13 ma il livello API reale va verificato.
+1. **Discovery** — inventario verificato di hardware, Android reale, build, MCU, partizioni, processi, servizi, permessi e applicazioni.
+2. **Security & privacy audit** — valutazione del software preinstallato, privilegi, background activity e possibili connessioni di telemetria con evidenze.
+3. **Debloat mirato** — classificazione pacchetti e rimozione/disabilitazione *solo dopo approvazione*, reversibilità e test delle funzioni automobilistiche.
+4. **Performance** — misure ripetibili prima/dopo: avvio, RAM, CPU, storage, launcher e collegamento del telefono.
+5. **Software updates** — verifica dei componenti installati, versioni ufficiali, firme APK, launcher, Android Auto e applicazioni audio.
+6. **Firmware & MCU** — ricerca e valutazione di immagini e aggiornamenti compatibili; **nessun flash** senza identificazione esatta e strategia di recovery.
+7. **Audio** — caratterizzazione del DSP/percorsi audio e regolazioni ripristinabili, solo quando conosciamo l'hardware.
 
-Android Auto **USB e wireless funzionano**: un precedente guasto wireless era provocato dalla modalità aereo attiva, non da un problema dimostrato dell'app.
+## Approccio: prima i repository per autoradio
 
-## Strategia: repo-first
+- [CleanYourHeadUnit](https://github.com/maxhayim/CleanYourHeadUnit): riferimento operativo ADB per inventario / audit, da revisionare prima dell'uso.
+- [headunit-debloat-skill](https://github.com/hamza39460/headunit-debloat-skill): metodologia di revisione e debloat.
+- [android-head-unit-exploration](https://github.com/andresurena/android-head-unit-exploration): metodologia di indagine su hardware simile.
+- Strumenti Android generici **solo per lacune effettive**. Non copiamo patch di altri modelli.
 
-1. [CleanYourHeadUnit](https://github.com/maxhayim/CleanYourHeadUnit) — strumento principale `cyhu` per ADB, inventario, classificazione, privacy e diagnostica; controllare il sorgente prima dell'esecuzione.
-2. [headunit-debloat-skill](https://github.com/hamza39460/headunit-debloat-skill) — metodologia conservativa e regole di review.
-3. [android-head-unit-exploration](https://github.com/andresurena/android-head-unit-exploration) — riferimento per la metodologia tecnica sul SoC MSM8953; firmware ZLink diverso dal nostro CarLetter.
-4. Strumenti Android generici soltanto se manca una funzione specifica per autoradio. CleanYourTV rimane solo una fonte di ispirazione.
+## Stato della nostra unità
 
-Non copiamo codice di terzi in questa repository finché non ne avremo verificato licenza e versione.
+Target dichiarato: Junsun V9 Pro 4+64 GB su Fiat Bravo II, Qualcomm MSM8953, X-258 Overseas, display 1280×720, MCU G10625. **Tutto da confermare dove possibile con ADB e identificazione fisica.** I dati comunicati in precedenza sono indizi iniziali, non una baseline tecnica. Vedere [DEVICE](docs/DEVICE.md).
 
-## Documentazione
+## Per iniziare su Windows
 
-- [Roadmap per fasi](docs/ROADMAP.md)
-- [Progetti upstream e modalità di riuso](docs/UPSTREAM.md)
-- [Scheda del dispositivo](docs/DEVICE.md)
-- [Installazione e prime verifiche Windows/ADB](docs/SETUP-WINDOWS.md)
-- [Baseline prima/dopo](docs/BASELINE.md)
-- [Regole Codex](AGENTS.md) e [Claude Code](CLAUDE.md)
+Leggi [SETUP-WINDOWS](docs/SETUP-WINDOWS.md). Installa le Platform Tools ufficiali, verifica il Junsun come dispositivo ADB autorizzato, raccogli una [baseline](docs/BASELINE.md) usando, se opportuno, lo [script di sola lettura](scripts/windows/Collect-JunsunReadOnly.ps1). Conserva i report **solo localmente**.
 
-## Come iniziare
+## Documentazione operativa
 
-Su Windows, scaricare [Android SDK Platform Tools](https://developer.android.com/tools/releases/platform-tools). A dispositivo parcheggiato, verificare se ADB è disponibile e autorizzato, poi:
+- [ROADMAP](docs/ROADMAP.md) — fasi, deliverable e condizioni di passaggio
+- [DEVICE](docs/DEVICE.md) — informazioni da verificare
+- [UPSTREAM](docs/UPSTREAM.md) — strumenti esistenti e strategia di riuso
+- [SETUP-WINDOWS](docs/SETUP-WINDOWS.md) — primi passi ADB
+- [BASELINE](docs/BASELINE.md) — metriche e test funzionali
+- [PRIVACY & PERFORMANCE](docs/PRIVACY-PERFORMANCE-PLAN.md) — schema audit
+- [DEBLOAT](docs/DEBLOAT.md) — classificazione e rollback
+- [SOFTWARE UPDATES](docs/SOFTWARE-UPDATES.md) — verifica aggiornamenti app
+- [FIRMWARE](docs/FIRMWARE-RESEARCH.md) — verifica ROM / MCU
+- [AUDIO](docs/AUDIO-PLAN.md) — metodo di diagnosi DSP
+- [NEXT STEPS](docs/NEXT-STEPS.md) — prossima sessione
 
-```powershell
-.\adb.exe devices -l
-```
+## Regole
 
-**Non condividere il seriale identificativo** mostrato da ADB. Leggere [SETUP-WINDOWS.md](docs/SETUP-WINDOWS.md) prima di ogni ulteriore comando.
+Il repository è **pubblico**. Non caricare log ADB grezzi, Device ID, seriali, MAC, SSID, account, credenziali o dati di posizione. Non disabilitare componenti CANBUS, comandi al volante, alimentazione/standby, radio, retrocamera, DSP, BT, Wi-Fi, telefonia o software sconosciuto senza verificarne la funzione.
 
-## Sicurezza e privacy
-
-Il repository è pubblico: non caricare log ADB grezzi, screenshot con informazioni personali, indirizzi MAC, SSID, numeri, contatti o dati di posizione. I report rimangono localmente sul PC; `.gitignore` esclude le cartelle dati previste.
-
-Nessuna modifica di app di sistema, CarLetter, MCU, CANBUS, retrocamera, DSP, radio, gestione dell'accensione o firmware senza revisione e approvazione esplicita. Il software di altri veicoli non è automaticamente compatibile.
-
-## Materiale consolidato (20 novembre 2026)
-
-- [Firmware individuati: V7472, V8987, V8921 e candidati esclusi](docs/FIRMWARE-CANDIDATES.md) — **nessuno autorizzato per il flash**.
-- [CarLetter / Android Auto](docs/CARLETTER-ANDROID-AUTO.md) e [incidente modalità aereo](docs/INCIDENTS.md).
-- [Ricerca su GitHub, XDA e forum](docs/RESEARCH-NOTES.md).
-- [Richiesta firmware / assistenza](docs/SUPPORT-REQUESTS.md).
-- [Cronologia del lavoro e dei due kit precedenti](docs/WORK-HISTORY.md): nessuna decisione è stata cancellata.
-- [Script ADB PowerShell in sola lettura](scripts/windows/Collect-JunsunReadOnly.ps1), adattato dal primo kit. **Non testato su questo esemplare**; richiede selezione e conferma esplicita del dispositivo.
-
-- [Piano specifico privacy/telemetria e prestazioni](docs/PRIVACY-PERFORMANCE-PLAN.md).
-- [Piano analisi e miglioramento audio/DSP](docs/AUDIO-PLAN.md).
-- [Checklist concreta per la prossima sessione](docs/NEXT-STEPS.md).
-
-**Avanzamento reale:** abbiamo soltanto documenti e uno script preparato; nessuna connessione ADB verificata, nessun dump, nessun firmware installato, nessun debloat o tuning audio eseguito.
+**Non eseguire operazioni distruttive o flash su suggerimento automatico di un agente.** Ogni cambiamento richiede consenso, backup dove possibile e rollback testato.
