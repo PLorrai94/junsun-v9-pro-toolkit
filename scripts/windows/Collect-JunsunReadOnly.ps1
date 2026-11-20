@@ -25,7 +25,7 @@ if ($LASTEXITCODE -ne 0) { throw "adb devices -l non riuscito: $($raw -join ' ')
 $escaped = [regex]::Escape($Serial)
 $foundLines = @($raw | Where-Object { $_ -match ('^' + $escaped + '\s+device(?:\s|$)') })
 if ($foundLines.Count -ne 1) {
-  throw 'Seriale non trovato come device autorizzato. Verifica adb devices -l; non confondere Junsun e Pixel 7.'
+  throw 'Seriale non trovato come device autorizzato. Verifica adb devices -l e seleziona il seriale dell'autoradio, non quello di altri dispositivi.'
 }
 Write-Host "Dispositivo ADB selezionato: $Serial" -ForegroundColor Yellow
 $confirm = Read-Host "Confermi che e' il JUNSUN e che l'auto e' parcheggiata? Digita JUNSUN per procedere"
@@ -58,7 +58,6 @@ foreach ($prop in @(
 )) {
   Collect-ReadOnly ('prop-' + $prop + '.txt') @('getprop', $prop)
 }
-Collect-ReadOnly 'airplane-mode.txt' @('settings','get','global','airplane_mode_on')
 Collect-ReadOnly 'packages-all.txt' @('pm','list','packages','-f','-i','-U')
 Collect-ReadOnly 'packages-user.txt' @('pm','list','packages','-3')
 Collect-ReadOnly 'packages-system.txt' @('pm','list','packages','-s')
