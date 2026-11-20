@@ -19,3 +19,11 @@ __pycache__/
 .venv/
 .vscode/
 .idea/
+
+# Output diagnostici non sanificati anche fuori dalle cartelle standard
+audit-*/
+JunsunAuditLocal/
+*.logcat
+*.dmp
+*.hprof
+*.jsonl
