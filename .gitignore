@@ -1,0 +1,29 @@
+# Dati locali o identificativi del dispositivo: non vanno pubblicati
+reports/
+device-data/
+raw-logs/
+backups/
+captures/
+private/
+local/
+*.log
+*.pcap
+*.pcapng
+*.apk
+*.img
+*.bin
+*.zip
+.env
+.env.*
+__pycache__/
+.venv/
+.vscode/
+.idea/
+
+# Output diagnostici non sanificati anche fuori dalle cartelle standard
+audit-*/
+JunsunAuditLocal/
+*.logcat
+*.dmp
+*.hprof
+*.jsonl
