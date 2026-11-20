@@ -53,4 +53,8 @@ Nessuna modifica di app di sistema, CarLetter, MCU, CANBUS, retrocamera, DSP, ra
 - [Cronologia del lavoro e dei due kit precedenti](docs/WORK-HISTORY.md): nessuna decisione è stata cancellata.
 - [Script ADB PowerShell in sola lettura](scripts/windows/Collect-JunsunReadOnly.ps1), adattato dal primo kit. **Non testato su questo esemplare**; richiede selezione e conferma esplicita del dispositivo.
 
+- [Piano specifico privacy/telemetria e prestazioni](docs/PRIVACY-PERFORMANCE-PLAN.md).
+- [Piano analisi e miglioramento audio/DSP](docs/AUDIO-PLAN.md).
+- [Checklist concreta per la prossima sessione](docs/NEXT-STEPS.md).
+
 **Avanzamento reale:** abbiamo soltanto documenti e uno script preparato; nessuna connessione ADB verificata, nessun dump, nessun firmware installato, nessun debloat o tuning audio eseguito.
